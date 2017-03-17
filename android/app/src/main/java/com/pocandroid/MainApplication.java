@@ -4,6 +4,9 @@ import android.app.Application;
 import android.util.Log;
 
 import com.facebook.react.ReactApplication;
+import com.tradle.react.UdpSocketsModule;
+import com.peel.react.TcpSocketsModule;
+import com.bitgo.randombytes.RandomBytesPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -24,7 +27,10 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-          new MainReactPackage()
+          new MainReactPackage(),
+            new UdpSocketsModule(),
+            new TcpSocketsModule(),
+            new RandomBytesPackage()
       );
     }
   };
