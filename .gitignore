@@ -6,3 +6,4 @@ node_modules/
 /android/.idea
 /android/build/
 npm-debug.*
+.DS_Store
