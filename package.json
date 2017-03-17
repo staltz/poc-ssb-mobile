@@ -1,0 +1,44 @@
+{
+  "name": "poc-android",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "jest-expo": "^0.2.1",
+    "react-test-renderer": "~15.4.0"
+  },
+  "scripts": {
+    "start": "react-native start",
+    "postinstall": "rn-nodeify --install fs,dgram,process,path,console --hack",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "test": "node node_modules/jest/bin/jest.js --watch"
+  },
+  "jest": {
+    "preset": "jest-expo"
+  },
+  "dependencies": {
+    "asyncstorage-down": "^3.1.1",
+    "buffer": "^5.0.5",
+    "console-browserify": "^1.1.0",
+    "path-browserify": "0.0.0",
+    "process": "^0.11.9",
+    "react": "~15.4.0",
+    "react-native": "0.41.2",
+    "react-native-level-fs": "^3.0.0",
+    "react-native-udp": "^1.2.9",
+    "rn-nodeify": "^7.0.1",
+    "scuttlebot": "^9.4.6"
+  },
+  "react-native": {
+    "console": "console-browserify",
+    "path": "path-browserify",
+    "fs": "react-native-level-fs",
+    "dgram": "react-native-udp"
+  },
+  "browser": {
+    "console": "console-browserify",
+    "path": "path-browserify",
+    "fs": "react-native-level-fs",
+    "dgram": "react-native-udp"
+  }
+}
