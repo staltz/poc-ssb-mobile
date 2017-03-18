@@ -1,26 +1,29 @@
 import './install-globals';
 import React from 'react';
 import { StyleSheet, Text, View, ToastAndroid } from 'react-native';
-import * as ssbkeys from 'ssb-keys';
-
-var myKeys = ssbkeys.generate();
+const ssbkeys = require('ssb-keys');
+const path = require('path');
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {keys: {public: '', private: '', id: ''}};
+  }
+
   componentDidMount() {
-    // ToastAndroid.show('hi', ToastAndroid.SHORT);
-    // ToastAndroid.show(JSON.stringify(sodium), ToastAndroid.LONG);
-    // ToastAndroid.show(JSON.stringify(chloride.to_hex), ToastAndroid.LONG);
-    // ToastAndroid.show('' + sodium.to_hex, ToastAndroid.LONG);
-    // ToastAndroid.show(sodium.to_hex.toString(), ToastAndroid.SHORT);
-    // ToastAndroid.show(sodium.crypto_generichash.toString(), ToastAndroid.SHORT);
-    // const thing = sodium.to_hex(sodium.crypto_generichash(64, 'test'));
-    // ToastAndroid.show(thing, ToastAndroid.LONG);
+    ssbkeys.loadOrCreate(path.join('~/.ssb', 'secret'), (err, keys) => {
+      if (err) {
+        ToastAndroid.show(err, ToastAndroid.LONG);
+      } else {
+        this.setState((prevState, props) => { return {keys}; });
+      }
+    })
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Text style={{fontSize: 20}}>key: {myKeys.id}</Text>
+        <Text style={{fontSize: 20}}>key: {this.state.keys.id}</Text>
       </View>
     );
   }
