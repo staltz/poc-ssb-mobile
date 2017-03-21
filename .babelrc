@@ -2,7 +2,37 @@
   "presets": [
     "react-native" // this is required for debugging with react-native/packager/transformer
   ],
-  "plugins": [],
-  "sourceMaps": true // must be true react-native/packager/transformer using with node-module-debug
-  // because of some bugs from vscode-node-debug & vscode-react-native, "sourceMaps" cannot be "inline" or "both"
+  "parserOpts": {
+    "strict": false,
+    "strictMode": false
+  },
+  "generatorOpts": {
+    "strict": false,
+    "strictMode": false
+  },
+  "plugins": [
+    "syntax-async-functions",
+    "syntax-class-properties",
+    "syntax-trailing-function-commas",
+    "transform-class-properties",
+    "transform-es2015-arrow-functions",
+    "transform-es2015-block-scoping",
+    "transform-es2015-classes",
+    "transform-es2015-computed-properties",
+    "transform-es2015-destructuring",
+    ["transform-strict-mode", {"strict": false}],
+    ["transform-es2015-modules-commonjs", {"strict": false, "allowTopLevelThis": true}],
+    "transform-es2015-parameters",
+    "transform-es2015-shorthand-properties",
+    "transform-es2015-spread",
+    "transform-es2015-template-literals",
+    "transform-flow-strip-types",
+    "transform-object-assign",
+    "transform-object-rest-spread",
+    "transform-react-display-name",
+    "transform-react-jsx",
+    "transform-regenerator",
+    ["transform-es2015-for-of", { "loose": true }]
+  ],
+  "sourceMaps": "inline"
 }

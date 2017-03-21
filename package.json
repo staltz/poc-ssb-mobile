@@ -2,13 +2,12 @@
   "name": "poc-android",
   "version": "0.1.0",
   "private": true,
-  "devDependencies": {
-    "jest-expo": "^0.2.1",
-    "react-test-renderer": "~15.4.0"
-  },
   "scripts": {
     "start": "react-native start",
-    "postinstall": "rn-nodeify --install fs,dgram,process,path,console --hack",
+    "rn-nodeify": "rn-nodeify --install fs,dgram,process,path,console --hack",
+    "fix-shims": "node fix-shims.js",
+    "patch-dependencies": "node patch-dependencies.js",
+    "postinstall": "npm run fix-shims && npm run rn-nodeify && npm run patch-dependencies",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "test": "node node_modules/jest/bin/jest.js --watch"
@@ -51,11 +50,18 @@
     "url": "^0.10.3",
     "vm-browserify": "0.0.4"
   },
+  "devDependencies": {
+    "glob": "7.1.1",
+    "jest-expo": "^0.2.1",
+    "react-test-renderer": "~15.4.0",
+    "rxjs": "^5.2.0"
+  },
   "react-native": {
     "console": "console-browserify",
     "path": "path-browserify",
     "crypto": "react-native-crypto",
     "stream": "stream-browserify",
+    "osenv": false,
     "chloride": "sodium-browserify-tweetnacl",
     "fs": "react-native-level-fs",
     "dgram": "react-native-udp",
@@ -68,14 +74,15 @@
     "https": "https-browserify",
     "os": "os-browserify",
     "querystring": "querystring-es3",
+    "leveldown": "asyncstorage-down",
+    "timers": "timers-browserify",
+    "tty": "tty-browserify",
+    "vm": "vm-browserify",
     "_stream_transform": "readable-stream/transform",
     "_stream_readable": "readable-stream/readable",
     "_stream_writable": "readable-stream/writable",
     "_stream_duplex": "readable-stream/duplex",
-    "_stream_passthrough": "readable-stream/passthrough",
-    "timers": "timers-browserify",
-    "tty": "tty-browserify",
-    "vm": "vm-browserify"
+    "_stream_passthrough": "readable-stream/passthrough"
   },
   "browser": {
     "console": "console-browserify",
