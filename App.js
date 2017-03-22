@@ -9,31 +9,31 @@ const config = require('ssb-config');
 
 export default class App extends React.Component {
   constructor(props) {
-    super(props);
-    this.state = {keys: {public: '', private: '', id: ''}};
+    super(props)
+    this.state = {keys: {public: '', private: '', id: ''}}
   }
 
   componentDidMount() {
     ssbKeys.loadOrCreate(path.join('~/.ssb', 'secret'), (err, keys) => {
       if (err) {
-        ToastAndroid.show(err, ToastAndroid.LONG);
+        ToastAndroid.show(err, ToastAndroid.LONG)
       } else {
-        this.setState((prevState, props) => { return {keys}; });
+        this.setState((prevState, props) => { return {keys} })
         // create a scuttlebot client using default settings
         // (server at localhost:8080, using key found at ~/.ssb/secret)
-        config.keys = keys;
-        config.host = '192.168.1.102';
-        console.log(keys.id);
-        const sbot = createSbot(config);
+        config.keys = keys
+        config.host = '192.168.1.104'
+        console.log(keys.id)
+        const sbot = createSbot(config)
 
         AsyncStorage.getAllKeys((err, keys) => {
           if (err) {
-            console.error(err);
+            console.error(err)
           } else {
             console.log('AsyncStorage getAllKeys', keys);
             keys.forEach(key => {
               AsyncStorage.getItem(key, (err2, value) => {
-                console.log('AsyncStorage', key, value);
+                console.log('AsyncStorage', key, value)
               })
             })
           }
@@ -43,18 +43,18 @@ export default class App extends React.Component {
         pull(
           sbot.createFeedStream(),
           pull.collect(function (err, msgs) {
-            console.log('createFeedStream', msgs);
+            console.log('createFeedStream', err, msgs)
             // ToastAndroid.show(msgs, ToastAndroid.LONG);
             // msgs[0].key == hash(msgs[0].value)
             // msgs[0].value...
           })
         )
 
-        console.log('gossip.peers', sbot.gossip.peers());
+        console.log('gossip.peers', sbot.gossip.peers())
 
         sbot.gossip.changes(function (err, changes) {
-          console.log('gossip.changes', changes);
-        });
+          console.log('gossip.changes', changes)
+        })
 
         sbot.gossip.add(
           '192.168.1.107:8008:@/AM2aoINDzNh6OwpOmT6BlC+CpSelAPDZL+ihjdyQXo=.ed25519',
@@ -62,18 +62,18 @@ export default class App extends React.Component {
         )
 
         sbot.replicate.changes(function (err, changes) {
-          console.log('replicate.changes', changes);
-        });
+          console.log('replicate.changes', changes)
+        })
 
         sbot.friends.all('follow', function (err, friends) {
-          console.log('friends.all', JSON.stringify(friends, null, '  '));
-        });
+          console.log('friends.all', JSON.stringify(friends, null, '  '))
+        })
 
         sbot.publish({ type: 'post', text: 'First Post from Android!' }, function (err, msg) {
           if (err) {
             console.error(err)
           } else {
-            console.log('sbot publish', msg);
+            console.log('sbot publish', msg)
           }
           // msg.key           == hash(msg.value)
           // msg.value.author  == your id
@@ -100,4 +100,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-});
+})
