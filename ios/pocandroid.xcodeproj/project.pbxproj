@@ -38,6 +38,7 @@
 		B2DA58DEC30248828294A4D4 /* libRNRandomBytes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC4183462C86402296D1DCB3 /* libRNRandomBytes.a */; };
 		B0593687DC0848DABF21A2FC /* libTcpSockets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2ADA8C4B6AC40309A569A32 /* libTcpSockets.a */; };
 		78095BBB9D78468183EAEBE8 /* libUdpSockets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6EFB13C61DF4ACAB4AF5FE4 /* libUdpSockets.a */; };
+		0529CF99C390440EB0B7535C /* libRNNetworkInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE53B368DF4A4B56ACC449C7 /* libRNNetworkInfo.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -263,6 +264,8 @@
 		E2ADA8C4B6AC40309A569A32 /* libTcpSockets.a */ = {isa = PBXFileReference; name = "libTcpSockets.a"; path = "libTcpSockets.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		412B66DE5E5A47DF95054E1B /* UdpSockets.xcodeproj */ = {isa = PBXFileReference; name = "UdpSockets.xcodeproj"; path = "../node_modules/react-native-udp/ios/UdpSockets.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		F6EFB13C61DF4ACAB4AF5FE4 /* libUdpSockets.a */ = {isa = PBXFileReference; name = "libUdpSockets.a"; path = "libUdpSockets.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		B1BE1DA44A354FA0BE4603E0 /* RNNetworkInfo.xcodeproj */ = {isa = PBXFileReference; name = "RNNetworkInfo.xcodeproj"; path = "../node_modules/react-native-network-info/ios/RNNetworkInfo.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		CE53B368DF4A4B56ACC449C7 /* libRNNetworkInfo.a */ = {isa = PBXFileReference; name = "libRNNetworkInfo.a"; path = "libRNNetworkInfo.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -292,6 +295,7 @@
 				B2DA58DEC30248828294A4D4 /* libRNRandomBytes.a in Frameworks */,
 				B0593687DC0848DABF21A2FC /* libTcpSockets.a in Frameworks */,
 				78095BBB9D78468183EAEBE8 /* libUdpSockets.a in Frameworks */,
+				0529CF99C390440EB0B7535C /* libRNNetworkInfo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,6 +465,7 @@
 				8A7431DD9D204F03A152120D /* RNRandomBytes.xcodeproj */,
 				9DF2D8F2D08A419EAE1309BE /* TcpSockets.xcodeproj */,
 				412B66DE5E5A47DF95054E1B /* UdpSockets.xcodeproj */,
+				B1BE1DA44A354FA0BE4603E0 /* RNNetworkInfo.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -990,6 +995,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Debug;
@@ -1010,6 +1016,7 @@
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/pocandroid.app/pocandroid";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1078,6 +1085,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Debug;
@@ -1109,6 +1117,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Release;
@@ -1135,6 +1144,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Debug;
@@ -1159,6 +1169,7 @@
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);

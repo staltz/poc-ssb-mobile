@@ -36,6 +36,7 @@
     "react-native-crypto": "^2.0.1",
     "react-native-http": "github:tradle/react-native-http#834492d",
     "react-native-level-fs": "^3.0.0",
+    "react-native-network-info": "^1.0.0",
     "react-native-randombytes": "^2.2.0",
     "react-native-tcp": "^2.0.4",
     "react-native-udp": "^1.2.9",
