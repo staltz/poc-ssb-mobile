@@ -1,0 +1,14 @@
+diff --git a/node_modules/atomic-file/index.js b/node_modules/atomic-file/index.js
+index 5c190fb..1f98210 100644
+--- a/node_modules/atomic-file/index.js
++++ b/node_modules/atomic-file/index.js
+@@ -18,6 +18,9 @@ module.exports = function (filename, suffix) {
+       if(value) return cb(null, value)
+       else fs.readFile(filename, 'utf8', function (err, _value) {
+         if(err) return cb(err)
++        if (!_value) {
++          _value = '{}'
++        }
+         cb(null, value = JSON.parse(_value))
+       })
+     },

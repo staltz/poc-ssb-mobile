@@ -1,0 +1,13 @@
+diff --git a/node_modules/vfile/index.js b/node_modules/vfile/index.js
+index 7d775ce..d4e6dd9 100644
+--- a/node_modules/vfile/index.js
++++ b/node_modules/vfile/index.js
+@@ -43,7 +43,7 @@ var proto;
+ var SEPARATOR = '/';
+
+ try {
+-    SEPARATOR = require('pa' + 'th').sep;
++    SEPARATOR = require('path').sep;
+ } catch (e) { /* empty */ }
+
+ /**

@@ -39,6 +39,9 @@ const otherModules = [
   'fwd-stream/node_modules/readable-stream',
   'levelup/node_modules/readable-stream',
   'bl/node_modules/readable-stream',
+  'secret-handshake/node_modules/pull-box-stream',
+  'level-blobs/node_modules/readable-stream',
+  'level-iterator-stream/node_modules/readable-stream',
   'secure-scuttlebutt/node_modules/readable-stream',
   'ssb-ref/node_modules/ip',
   'ssb-config/node_modules/non-private-ip'
@@ -52,7 +55,7 @@ readdir$('./node_modules')
   .filter(_module => fs.existsSync(path.join(_module, 'package.json')))
   .mergeMap(file => {
     const p = path.join(file, 'package.json')
-    return readFile$(p, 'ascii')
+    return readFile$(p, 'utf-8')
       .map(JSON.parse)
       .switchMap(setChlorideShim)
       .map(obj => JSON.stringify(obj, null, '  '))

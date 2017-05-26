@@ -1,6 +1,8 @@
 import './install-globals';
 import React from 'react';
-import { StyleSheet, Text, View, ToastAndroid, AsyncStorage } from 'react-native';
+import {
+  StyleSheet, Text, View, ToastAndroid, AsyncStorage, TextInput, Button,
+} from 'react-native';
 import createSbot from './sbot';
 import NetworkInfo from 'react-native-network-info';
 const ssbKeys = require('ssb-keys');
@@ -11,12 +13,17 @@ const config = require('ssb-config');
 export default class App extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {keys: {public: '', private: '', id: ''}}
+    this.state = {
+      keys: {public: '', private: '', id: ''},
+      feed: []
+    }
   }
 
   componentDidMount() {
     NetworkInfo.getIPAddress(ip => {
-      ssbKeys.loadOrCreate(path.join('~/.ssb', 'secret'), (err, keys) => {
+      console.log('got ip', ip)
+      const p = path.join('.ssb', 'secret')
+      ssbKeys.loadOrCreate(p, (err, keys) => {
         if (err) {
           ToastAndroid.show(err, ToastAndroid.LONG)
         } else {
@@ -25,32 +32,26 @@ export default class App extends React.Component {
           // (server at localhost:8080, using key found at ~/.ssb/secret)
           config.keys = keys
           config.host = ip
-          console.log(keys.id)
           const sbot = createSbot(config)
-
-          AsyncStorage.getAllKeys((err, keys) => {
-            if (err) {
-              console.error(err)
-            } else {
-              console.log('AsyncStorage getAllKeys', keys);
-              keys.forEach(key => {
-                AsyncStorage.getItem(key, (err2, value) => {
-                  console.log('AsyncStorage', key, value)
-                })
-              })
-            }
-          })
+          this.sbot = sbot;
 
           // stream all messages in all feeds, ordered by receive time
-          pull(
-            sbot.createFeedStream(),
-            pull.collect(function (err, msgs) {
-              console.log('createFeedStream', err, msgs)
-              // ToastAndroid.show(msgs, ToastAndroid.LONG);
-              // msgs[0].key == hash(msgs[0].value)
-              // msgs[0].value...
-            })
-          )
+          setInterval(() => {
+            pull(
+              sbot.createFeedStream({limit: 100}),
+              pull.collect((err, msgs) => {
+                if (err) {
+                  console.error(err);
+                }
+                this.setState(function (prevState) {
+                  return {
+                    ...prevState,
+                    feed: msgs.map(msg => msg.value.content.text)
+                  }
+                })
+              })
+            )
+          }, 10000)
 
           console.log('gossip.peers', sbot.gossip.peers())
 
@@ -58,29 +59,12 @@ export default class App extends React.Component {
             console.log('gossip.changes', changes)
           })
 
-          sbot.gossip.add(
-            '192.168.1.107:8008:@/AM2aoINDzNh6OwpOmT6BlC+CpSelAPDZL+ihjdyQXo=.ed25519',
-            'local'
-          )
-
-          sbot.replicate.changes(function (err, changes) {
-            console.log('replicate.changes', changes)
-          })
-
-          sbot.friends.all('follow', function (err, friends) {
-            console.log('friends.all', JSON.stringify(friends, null, '  '))
-          })
-
-          sbot.publish({ type: 'post', text: 'First Post from Android!' }, function (err, msg) {
+          sbot.publish({type: 'post', text: 'First Post from Android!'}, function (err, msg) {
             if (err) {
               console.error(err)
             } else {
-              console.log('sbot publish', msg)
+              console.log('published message', msg)
             }
-            // msg.key           == hash(msg.value)
-            // msg.value.author  == your id
-            // msg.value.content == { type: 'post', text: 'My First Post!' }
-            // ...
           })
         }
       })
@@ -91,6 +75,22 @@ export default class App extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={{fontSize: 20}}>key: {this.state.keys.id}</Text>
+        <Text style={{fontSize: 20}}>{this.state.feed.join('\n')}</Text>
+        <TextInput
+          placeholder="Enter new post"
+          style={styles.textInput}
+          ref="leinput"
+          onSubmitEditing={(event) => {
+            this.sbot.publish({type: 'post', text: event.nativeEvent.text}, function (err, msg) {
+              if (err) {
+                console.error(err)
+              } else {
+                console.log('published message', msg)
+              }
+            })
+            this.refs['leinput'].clear();
+          }}
+        />
       </View>
     );
   }
@@ -102,5 +102,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffc',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  textInput: {
+    minWidth: 250,
+    backgroundColor: 'white',
   },
 })

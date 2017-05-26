@@ -1,0 +1,7 @@
+diff --git a/node_modules/safe-buffer/browser.js b/node_modules/safe-buffer/browser.js
+index 0bd1202..9a93985 100644
+--- a/node_modules/safe-buffer/browser.js
++++ b/node_modules/safe-buffer/browser.js
+@@ -1 +1 @@
+-module.exports = require('buffer')
++module.exports = require('./index')

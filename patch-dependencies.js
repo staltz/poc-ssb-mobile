@@ -2,7 +2,7 @@ const glob = require('glob')
 const fs = require('fs')
 const path = require('path')
 
-const ROOT_PATH = path.resolve(`${__dirname}/..`)
+const ROOT_PATH = path.resolve(`${__dirname}`)
 
 // Get paths to all readable-stream packages in the dependency tree
 function getPackagePaths(rootPath, packageName) {
@@ -60,50 +60,3 @@ patchAllFilesWith('readable-stream', content =>
     `throw new Error('readable-stream called require(st + ream)')`
   )
 )
-
-patchAllFilesWith('vfile', content =>
-  content.replace(
-    /require\('pa' ?\+ ?'th'\)/g,
-    `require('path')`
-  )
-)
-
-patchAllFilesWith('scuttlebot', (content, srcPath) => {
-  if (path.posix.basename(srcPath) !== 'apidocs.js') {
-    return content;
-  }
-
-  const dirname = path.dirname(srcPath)
-
-  function readMarkdownCompileTime(relPath) {
-    return fs.readFileSync(path.join(dirname, relPath), 'utf-8')
-      .replace(/\`\`\`/g, '')
-      .replace(/\`/g, '"')
-  }
-
-  return content.replace(
-    `fs.readFileSync(path.join(__dirname, '../api.md'), 'utf-8')`,
-    `\`${readMarkdownCompileTime(         '../api.md')}\``
-  ).replace(
-    `fs.readFileSync(path.join(__dirname, '../plugins/block.md'), 'utf-8')`,
-    `\`${readMarkdownCompileTime(         '../plugins/block.md')}\``
-  ).replace(
-    `fs.readFileSync(path.join(__dirname, '../plugins/friends.md'), 'utf-8')`,
-    `\`${readMarkdownCompileTime(         '../plugins/friends.md')}\``
-  ).replace(
-    `fs.readFileSync(path.join(__dirname, '../plugins/gossip.md'), 'utf-8')`,
-    `\`${readMarkdownCompileTime(         '../plugins/gossip.md')}\``
-  ).replace(
-    `fs.readFileSync(path.join(__dirname, '../plugins/invite.md'), 'utf-8')`,
-    `\`${readMarkdownCompileTime(         '../plugins/invite.md')}\``
-  ).replace(
-    `fs.readFileSync(path.join(__dirname, '../plugins/plugins.md'), 'utf-8')`,
-    `\`${readMarkdownCompileTime(         '../plugins/plugins.md')}\``
-  ).replace(
-    `fs.readFileSync(path.join(__dirname, '../plugins/private.md'), 'utf-8')`,
-    `\`${readMarkdownCompileTime(         '../plugins/private.md')}\``
-  ).replace(
-    `fs.readFileSync(path.join(__dirname, '../plugins/replicate.md'), 'utf-8')`,
-    `\`${readMarkdownCompileTime(         '../plugins/replicate.md')}\``
-  )
-})
