@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "assert": "1.4.1",
-    "asyncstorage-down": "file:../asyncstorage-down",
+    "@staltz/asyncstorage-down": "4.0.0",
     "browserify-zlib": "0.1.4",
     "buffer": "3.6.0",
     "console-browserify": "1.1.0",
@@ -63,6 +63,7 @@
     "rxjs": "^5.2.0"
   },
   "react-native": {
+    "asyncstorage-down": "@staltz/asyncstorage-down",
     "console": "console-browserify",
     "path": "path-browserify",
     "crypto": "react-native-crypto",
@@ -80,7 +81,7 @@
     "https": "https-browserify",
     "os": "os-browserify",
     "querystring": "querystring-es3",
-    "leveldown": "asyncstorage-down",
+    "leveldown": "@staltz/asyncstorage-down",
     "timers": "timers-browserify",
     "tty": "tty-browserify",
     "tls": false,
