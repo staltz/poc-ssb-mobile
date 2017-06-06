@@ -1,0 +1,14 @@
+diff --git a/node_modules/react-native-tcp/TcpSocket.js b/node_modules/react-native-tcp/TcpSocket.js
+index 66f2b08..a991428 100644
+--- a/node_modules/react-native-tcp/TcpSocket.js
++++ b/node_modules/react-native-tcp/TcpSocket.js
+@@ -357,7 +357,8 @@ TcpSocket.prototype._write = function(buffer: any, encoding: ?String, callback:
+   var self = this;
+
+   if (this._state === STATE.DISCONNECTED) {
+-    throw new Error('Socket is not connected.');
++    this._unregisterEvents();
++    this.emit('close', false);
+   } else if (this._state === STATE.CONNECTING) {
+     // we're ok, GCDAsyncSocket handles queueing internally
+   }
