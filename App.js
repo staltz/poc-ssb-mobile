@@ -36,22 +36,19 @@ export default class App extends React.Component {
           this.sbot = sbot;
 
           // stream all messages in all feeds, ordered by receive time
-          setInterval(() => {
-            pull(
-              sbot.createFeedStream({limit: 100}),
-              pull.collect((err, msgs) => {
-                if (err) {
-                  console.error(err);
-                }
+          pull(
+            sbot.createFeedStream({live: true}),
+            pull.drain((msg) => {
+              if (msg && msg.value && msg.value.content) {
                 this.setState(function (prevState) {
                   return {
                     ...prevState,
-                    feed: msgs.map(msg => msg.value.content.text)
+                    feed: prevState.feed.concat(msg.value.content.text),
                   }
                 })
-              })
-            )
-          }, 10000)
+              }
+            })
+          )
 
           console.log('gossip.peers', sbot.gossip.peers())
 
@@ -59,7 +56,8 @@ export default class App extends React.Component {
             console.log('gossip.changes', changes)
           })
 
-          sbot.publish({type: 'post', text: 'First Post from Android!'}, function (err, msg) {
+          const text = 'from android ' + (Date.now() % 50);
+          sbot.publish({type: 'post', text: text}, function (err, msg) {
             if (err) {
               console.error(err)
             } else {
