@@ -1,0 +1,23 @@
+diff --git a/node_modules/tweetnacl/nacl.js b/node_modules/tweetnacl/nacl.js
+index f72dd78..2df895a 100644
+--- a/node_modules/tweetnacl/nacl.js
++++ b/node_modules/tweetnacl/nacl.js
+@@ -14,8 +14,16 @@ var gf = function(init) {
+   return r;
+ };
+
+-//  Pluggable, initialized in high-level API below.
+-var randombytes = function(/* x, n */) { throw new Error('no PRNG'); };
++// Can be modified, but assumes a browser (`getRandomValues`)
++var randombytes = function randombytes(x, n) {
++  var QUOTA = 65536;
++  var i, v = new Uint8Array(n);
++  for (i = 0; i < n; i += QUOTA) {
++    crypto.getRandomValues(v.subarray(i, i + Math.min(n - i, QUOTA)));
++  }
++  for (i = 0; i < n; i++) x[i] = v[i];
++  cleanup(v);
++}
+
+ var _0 = new Uint8Array(16);
+ var _9 = new Uint8Array(32); _9[0] = 9;
