@@ -34,15 +34,13 @@ function log(x) {
 }
 
 const otherModules = [
-  'secret-stack/node_modules/non-private-ip',
   'fwd-stream/node_modules/readable-stream',
   'levelup/node_modules/readable-stream',
   'bl/node_modules/readable-stream',
   'level-blobs/node_modules/readable-stream',
   'level-iterator-stream/node_modules/readable-stream',
-  'secure-scuttlebutt/node_modules/readable-stream',
-  'ssb-ref/node_modules/ip',
-  'ssb-config/node_modules/non-private-ip'
+  'level-sublevel/node_modules/readable-stream',
+  'ssb-ref/node_modules/ip'
 ];
 
 readdir$('./node_modules')

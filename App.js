@@ -1,5 +1,5 @@
 import './install-globals';
-import React from 'react';
+import React, {Component} from 'react';
 import {
   StyleSheet, Text, View, ToastAndroid, AsyncStorage, TextInput, Button,
 } from 'react-native';
@@ -10,7 +10,7 @@ const path = require('path');
 const pull = require('pull-stream');
 const config = require('ssb-config');
 
-export default class App extends React.Component {
+export default class App extends Component {
   constructor(props) {
     super(props)
     this.state = {

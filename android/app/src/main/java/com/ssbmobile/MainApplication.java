@@ -1,14 +1,12 @@
-package com.pocandroid;
+package com.ssbmobile;
 
 import android.app.Application;
-import android.util.Log;
 
 import com.facebook.react.ReactApplication;
 import com.tradle.react.UdpSocketsModule;
-import com.pusherman.networkinfo.RNNetworkInfoPackage;
 import com.peel.react.TcpSocketsModule;
 import com.bitgo.randombytes.RandomBytesPackage;
-import com.facebook.react.ReactInstanceManager;
+import com.pusherman.networkinfo.RNNetworkInfoPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -30,9 +28,9 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new UdpSocketsModule(),
-            new RNNetworkInfoPackage(),
             new TcpSocketsModule(),
-            new RandomBytesPackage()
+            new RandomBytesPackage(),
+            new RNNetworkInfoPackage()
       );
     }
   };

@@ -1,0 +1,19 @@
+diff --git a/node_modules/on-change-network/index.js b/node_modules/on-change-network/index.js
+index 66f2b08..a991428 100644
+--- a/node_modules/on-change-network/index.js
++++ b/node_modules/on-change-network/index.js
+@@ -1,11 +1,11 @@
+ var os = require('os')
+
+ function each (network) {
+-  return Object.keys(network).map(function (interface) {
+-    return network[interface].filter(function (e) {
++  return Object.keys(network).map(function (_interface) {
++    return network[_interface].filter(function (e) {
+       return !e.internal
+     }).map(function (e) {
+-      return interface+'/'+e.address
++      return _interface+'/'+e.address
+     })
+   }).reduce(function (a, b) {
+     return a.concat(b)
